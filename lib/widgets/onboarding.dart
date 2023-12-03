@@ -2,7 +2,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:introduction_screen/introduction_screen.dart';
-import 'package:web_source/pages/home_page.dart';
 import 'package:web_source/pages/regstration_first.dart';
 
 class OnBoardingPage extends StatefulWidget {
@@ -68,7 +67,8 @@ class OnBoardingPageState extends State<OnBoardingPage> {
       ],
       onDone: () => _onIntroEnd(context),
       onSkip: () => _onIntroEnd(context),
-      animationDuration: 400,
+      animationDuration: 1200,
+
       showSkipButton: true,
       skipOrBackFlex: 0,
       nextFlex: 0,

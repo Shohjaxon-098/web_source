@@ -1,5 +1,8 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:web_source/pages/sign_in.dart';
 
 class RegstrationPage extends StatefulWidget {
   const RegstrationPage({super.key});
@@ -7,12 +10,6 @@ class RegstrationPage extends StatefulWidget {
   @override
   State<RegstrationPage> createState() => _RegstrationPageState();
 }
-
-List<String> items = [
-  "Create Account",
-  "Login",
-];
-int current = 0;
 
 class _RegstrationPageState extends State<RegstrationPage> {
   @override
@@ -59,7 +56,9 @@ class _RegstrationPageState extends State<RegstrationPage> {
                 ),
                 onPressed: () {
                   showModalBottomSheet(
-                      context: context, builder: (context) => buildSheet());
+                      scrollControlDisabledMaxHeightRatio: 0.8,
+                      context: context,
+                      builder: (context) => const BuildBottomSheet());
                 },
                 child: const Text(
                   "Create Account",
@@ -127,59 +126,79 @@ class _RegstrationPageState extends State<RegstrationPage> {
   }
 }
 
-Widget buildSheet() => Container(
-      width: double.infinity,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Container(
-            margin: const EdgeInsets.only(top: 23),
-            width: 48,
-            decoration: ShapeDecoration(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(15),
-                side: const BorderSide(
-                  width: 4,
-                  strokeAlign: BorderSide.strokeAlignCenter,
-                  color: Color(0xFFD2D4D8),
+class BuildBottomSheet extends StatefulWidget {
+  const BuildBottomSheet({super.key});
+
+  @override
+  State<BuildBottomSheet> createState() => _BuildBottomSheetState();
+}
+
+class _BuildBottomSheetState extends State<BuildBottomSheet> {
+  int current = 0;
+
+  @override
+  Widget build(BuildContext context) {
+    return DefaultTabController(
+      length: 2,
+      child: Container(
+        width: double.infinity,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Container(
+              margin: const EdgeInsets.only(top: 23),
+              width: 48,
+              decoration: ShapeDecoration(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15),
+                  side: const BorderSide(
+                    width: 4,
+                    strokeAlign: BorderSide.strokeAlignCenter,
+                    color: Color(0xFFD2D4D8),
+                  ),
                 ),
               ),
             ),
-          ),
-          const DefaultTabController(
-            length: 2,
-            child: Column(
-              children: [
-                TabBar(
-                  physics: ClampingScrollPhysics(),
-                  padding: EdgeInsets.only(
-                    top: 25,
+            const Padding(
+              padding: EdgeInsets.only(top: 25),
+              child: TabBar(
+                physics: ClampingScrollPhysics(),
+                indicatorSize: TabBarIndicatorSize.label,
+                dividerColor: Colors.transparent,
+                indicatorColor: Color(0xff32B768),
+                unselectedLabelColor: Color(0xff89909E),
+                labelColor: Color(0xff32B768),
+                tabs: [
+                  Text(
+                    "Create Account",
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16,
+                    ),
                   ),
-                  unselectedLabelColor: Color(0xff89909E),
-                  indicatorSize: TabBarIndicatorSize.label,
-                  labelColor: Color(0xff32B768),
-                  indicatorColor: Color(0xff32B768),
-                  dividerColor: Colors.transparent,
-                  tabs: [
-                    Tab(
-                      child: Text(
-                        "Create Account",
-                        style: TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.bold),
-                      ),
+                  Text(
+                    "Login",
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16,
                     ),
-                    Tab(
-                      child: Text(
-                        "Login",
-                        style: TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                  ],
-                ),
-              ],
+                  ),
+                ],
+              ),
             ),
-          ),
-        ],
+            Expanded(
+              child: TabBarView(
+                children: [
+                  SignInForm(),
+                  Center(
+                    child: Text("asdasd"),
+                  )
+                ],
+              ),
+            )
+          ],
+        ),
       ),
     );
+  }
+}

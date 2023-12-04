@@ -102,9 +102,9 @@ class _RegstrationPageState extends State<RegstrationPage> {
             ),
             Center(
               child: RichText(
-                  text: const TextSpan(
-                      style: TextStyle(color: Colors.black, fontSize: 12),
-                      children: <TextSpan>[
+                text: const TextSpan(
+                  style: TextStyle(color: Colors.black, fontSize: 12),
+                  children: <TextSpan>[
                     TextSpan(
                         text:
                             "By Logging In Or Registering, You Have Agreed To "),
@@ -116,7 +116,9 @@ class _RegstrationPageState extends State<RegstrationPage> {
                     TextSpan(
                         text: "Privacy Policy.",
                         style: TextStyle(color: Color(0xff32B768))),
-                  ])),
+                  ],
+                ),
+              ),
             )
           ],
         ),
@@ -144,39 +146,40 @@ Widget buildSheet() => Container(
               ),
             ),
           ),
-          SizedBox(
-            height: 70,
-            width: 300,
-            child: ListView.builder(
-                padding: const EdgeInsets.only(right: 20),
-                itemCount: items.length,
-                scrollDirection: Axis.horizontal,
-                itemBuilder: (ctx, index) {
-                  return GestureDetector(
-                    onTap: () {
-                      setState() {
-                        current += index;
-                      }
-
-                      print(current);
-                    },
-                    child: AnimatedContainer(
-                      duration: const Duration(milliseconds: 300),
-                      margin:
-                          const EdgeInsets.only(top: 25, right: 50, left: 20),
+          const DefaultTabController(
+            length: 2,
+            child: Column(
+              children: [
+                TabBar(
+                  physics: ClampingScrollPhysics(),
+                  padding: EdgeInsets.only(
+                    top: 25,
+                  ),
+                  unselectedLabelColor: Color(0xff89909E),
+                  indicatorSize: TabBarIndicatorSize.label,
+                  labelColor: Color(0xff32B768),
+                  indicatorColor: Color(0xff32B768),
+                  dividerColor: Colors.transparent,
+                  tabs: [
+                    Tab(
                       child: Text(
-                        items[index],
+                        "Create Account",
                         style: TextStyle(
-                            color: current == index
-                                ? const Color(0xff32B768)
-                                : const Color(0xff89909E),
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold),
+                            fontSize: 16, fontWeight: FontWeight.bold),
                       ),
                     ),
-                  );
-                }),
-          )
+                    Tab(
+                      child: Text(
+                        "Login",
+                        style: TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
         ],
       ),
     );

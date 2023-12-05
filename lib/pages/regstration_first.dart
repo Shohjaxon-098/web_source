@@ -56,7 +56,7 @@ class _RegstrationPageState extends State<RegstrationPage> {
                 ),
                 onPressed: () {
                   showModalBottomSheet(
-                      scrollControlDisabledMaxHeightRatio: 0.8,
+                      scrollControlDisabledMaxHeightRatio: 0.76,
                       context: context,
                       builder: (context) => const BuildBottomSheet());
                 },
@@ -97,7 +97,7 @@ class _RegstrationPageState extends State<RegstrationPage> {
               ),
             ),
             const SizedBox(
-              height: 16,
+              height: 26,
             ),
             Center(
               child: RichText(
@@ -140,7 +140,8 @@ class _BuildBottomSheetState extends State<BuildBottomSheet> {
   Widget build(BuildContext context) {
     return DefaultTabController(
       length: 2,
-      child: Container(
+      child: AnimatedContainer(
+        duration: Duration(milliseconds: 400),
         width: double.infinity,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -160,7 +161,7 @@ class _BuildBottomSheetState extends State<BuildBottomSheet> {
               ),
             ),
             const Padding(
-              padding: EdgeInsets.only(top: 25),
+              padding: EdgeInsets.only(top: 40),
               child: TabBar(
                 physics: ClampingScrollPhysics(),
                 indicatorSize: TabBarIndicatorSize.label,
@@ -185,6 +186,9 @@ class _BuildBottomSheetState extends State<BuildBottomSheet> {
                   ),
                 ],
               ),
+            ),
+            SizedBox(
+              height: 25,
             ),
             Expanded(
               child: TabBarView(

@@ -4,6 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:rive/rive.dart';
 
 import 'package:web_source/pages/home_page.dart';
+import 'package:web_source/widgets/key.dart';
 
 class SignInForm extends StatefulWidget {
   const SignInForm({
@@ -15,7 +16,6 @@ class SignInForm extends StatefulWidget {
 }
 
 class _SignInFormState extends State<SignInForm> {
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   bool isShowLoading = false;
   bool isShowConfetti = false;
   late SMITrigger error;
@@ -51,7 +51,7 @@ class _SignInFormState extends State<SignInForm> {
     Future.delayed(
       const Duration(seconds: 1),
       () {
-        if (_formKey.currentState!.validate()) {
+        if (formKey.currentState!.validate()) {
           success.fire();
           Future.delayed(
             const Duration(seconds: 2),
@@ -93,7 +93,7 @@ class _SignInFormState extends State<SignInForm> {
     return Stack(
       children: [
         Form(
-          key: _formKey,
+          key: formKey,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -116,12 +116,6 @@ class _SignInFormState extends State<SignInForm> {
                   height: MediaQuery.of(context).size.height * 0.063,
                   width: MediaQuery.of(context).size.width * 0.85,
                   child: TextFormField(
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return "";
-                      }
-                      return null;
-                    },
                     decoration: InputDecoration(
                       hintText: "Enter your full name",
                       hintStyle:
@@ -150,14 +144,8 @@ class _SignInFormState extends State<SignInForm> {
                   height: MediaQuery.of(context).size.height * 0.063,
                   width: MediaQuery.of(context).size.width * 0.85,
                   child: TextFormField(
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return "";
-                      }
-                      return null;
-                    },
                     decoration: InputDecoration(
-                      hintText: "Eg namaemail@emailkamu.com",
+                      hintText: "Ex: nameusername@gmail.com",
                       hintStyle:
                           TextStyle(color: Color(0xff9CA3AF), fontSize: 12),
                       contentPadding: EdgeInsets.all(8),
@@ -185,12 +173,6 @@ class _SignInFormState extends State<SignInForm> {
                   width: MediaQuery.of(context).size.width * 0.85,
                   child: TextFormField(
                     obscureText: true,
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return "";
-                      }
-                      return null;
-                    },
                     decoration: InputDecoration(
                       hintText: "**** **** ****",
                       hintStyle:
@@ -203,24 +185,76 @@ class _SignInFormState extends State<SignInForm> {
                   ),
                 ),
               ),
+              SizedBox(
+                height: 32,
+              ),
               Center(
                 child: SizedBox(
                   width: MediaQuery.of(context).size.width * 0.6,
                   height: MediaQuery.of(context).size.height * 0.061,
                   child: ElevatedButton(
-                    child: Text("Registration"),
+                    child: Text(
+                      "Registration",
+                      style: TextStyle(
+                        color: Color(0xff9CA3AF),
+                      ),
+                    ),
+                    onPressed: () {
+                      setState(() {
+                        if (formKey.currentState!.validate()) {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => HomePage()));
+                        }
+                      });
+                    },
+                    style: ButtonStyle(
+                      elevation: MaterialStatePropertyAll(0.7),
+                      backgroundColor:
+                          MaterialStatePropertyAll(Color(0xffE5E5E5)),
+                      shape: MaterialStatePropertyAll(
+                        RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 120, vertical: 3),
+                child: Divider(),
+              ),
+              Center(
+                child: SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.6,
+                  height: MediaQuery.of(context).size.height * 0.061,
+                  child: ElevatedButton(
+                    child: Row(
+                      children: [
+                        SvgPicture.asset("assets/ic_google.svg"),
+                        SizedBox(
+                          width: 16,
+                        ),
+                        Text(
+                          "Sign up with Google",
+                          style: TextStyle(
+                            color: Color(0xff222222),
+                          ),
+                        ),
+                      ],
+                    ),
                     onPressed: () {
                       singIn(context);
                     },
-                    style: ElevatedButton.styleFrom(
-                      elevation: 0,
-                      backgroundColor: Color(0xffE5E5E5),
-                      shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(12),
-                          topRight: Radius.circular(12),
-                          bottomRight: Radius.circular(12),
-                          bottomLeft: Radius.circular(12),
+                    style: ButtonStyle(
+                      elevation: MaterialStatePropertyAll(0.5),
+                      backgroundColor:
+                          MaterialStatePropertyAll(Color(0xffF4F4F4)),
+                      shape: MaterialStatePropertyAll(
+                        RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
                         ),
                       ),
                     ),
@@ -230,53 +264,7 @@ class _SignInFormState extends State<SignInForm> {
             ],
           ),
         ),
-        isShowLoading
-            ? CustomPositioned(
-                child: RiveAnimation.asset(
-                  'assets/RiveAssets/check.riv',
-                  fit: BoxFit.cover,
-                  onInit: _onCheckRiveInit,
-                ),
-              )
-            : const SizedBox(),
-        isShowConfetti
-            ? CustomPositioned(
-                scale: 6,
-                child: RiveAnimation.asset(
-                  "assets/RiveAssets/confetti.riv",
-                  onInit: _onConfettiRiveInit,
-                  fit: BoxFit.cover,
-                ),
-              )
-            : const SizedBox(),
       ],
-    );
-  }
-}
-
-class CustomPositioned extends StatelessWidget {
-  const CustomPositioned({super.key, this.scale = 1, required this.child});
-
-  final double scale;
-  final Widget child;
-
-  @override
-  Widget build(BuildContext context) {
-    return Positioned.fill(
-      child: Column(
-        children: [
-          const Spacer(),
-          SizedBox(
-            height: 100,
-            width: 100,
-            child: Transform.scale(
-              scale: scale,
-              child: child,
-            ),
-          ),
-          const Spacer(flex: 2),
-        ],
-      ),
     );
   }
 }

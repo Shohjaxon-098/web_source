@@ -2,7 +2,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:rive/rive.dart';
+import 'package:web_source/model/toast.dart';
 import 'package:web_source/pages/home_page.dart';
 import 'package:web_source/services/auth_service.dart';
 import 'package:web_source/widgets/form_container_widget.dart';
@@ -18,13 +20,15 @@ class SignInForm extends StatefulWidget {
 }
 
 class _SignInFormState extends State<SignInForm> {
-  bool _isSigning = false;
   final FireBaseAuthService _fireBaseAuthService = FireBaseAuthService();
-  final FirebaseAuth _auth = FirebaseAuth.instance;
+  bool isSigningUp = false;
+  TextEditingController _usernameController = TextEditingController();
   TextEditingController _emailController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
+
   @override
   void dispose() {
+    _usernameController.dispose();
     _emailController.dispose();
     _passwordController.dispose();
     // TODO: implement dispose
@@ -38,70 +42,6 @@ class _SignInFormState extends State<SignInForm> {
   late SMITrigger reset;
 
   late SMITrigger confetti;
-
-  void _onCheckRiveInit(Artboard artboard) {
-    StateMachineController? controller =
-        StateMachineController.fromArtboard(artboard, 'State Machine 1');
-
-    artboard.addController(controller!);
-    error = controller.findInput<bool>('Error') as SMITrigger;
-    success = controller.findInput<bool>('Check') as SMITrigger;
-    reset = controller.findInput<bool>('Reset') as SMITrigger;
-  }
-
-  void _onConfettiRiveInit(Artboard artboard) {
-    StateMachineController? controller =
-        StateMachineController.fromArtboard(artboard, "State Machine 1");
-    artboard.addController(controller!);
-
-    confetti = controller.findInput<bool>("Trigger explosion") as SMITrigger;
-  }
-
-  void singIn(BuildContext context) {
-    // confetti.fire();
-    setState(() {
-      isShowConfetti = true;
-      isShowLoading = true;
-    });
-    Future.delayed(
-      const Duration(seconds: 1),
-      () {
-        if (formKey.currentState!.validate()) {
-          success.fire();
-          Future.delayed(
-            const Duration(seconds: 2),
-            () {
-              setState(() {
-                isShowLoading = false;
-              });
-              confetti.fire();
-              // Navigate & hide confetti
-              Future.delayed(const Duration(seconds: 1), () {
-                // Navigator.pop(context);
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const HomePage(),
-                  ),
-                );
-              });
-            },
-          );
-        } else {
-          error.fire();
-          Future.delayed(
-            const Duration(seconds: 2),
-            () {
-              setState(() {
-                isShowLoading = false;
-              });
-              reset.fire();
-            },
-          );
-        }
-      },
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -131,6 +71,7 @@ class _SignInFormState extends State<SignInForm> {
                   height: MediaQuery.of(context).size.height * 0.063,
                   width: MediaQuery.of(context).size.width * 0.85,
                   child: FormContainerWidget(
+                    controller: _usernameController,
                     hintText: "Enter your full name",
                     isPasswordField: false,
                   ),
@@ -174,6 +115,7 @@ class _SignInFormState extends State<SignInForm> {
                   height: MediaQuery.of(context).size.height * 0.063,
                   width: MediaQuery.of(context).size.width * 0.85,
                   child: FormContainerWidget(
+                    isPasswordField: true,
                     hintText: "**** **** ****",
                   ),
                 ),
@@ -187,22 +129,19 @@ class _SignInFormState extends State<SignInForm> {
                   height: MediaQuery.of(context).size.height * 0.061,
                   child: ElevatedButton(
                     child: Center(
-                      child:_isSigning? CircularProgressIndicator(color: Colors.white,): Text(
-                        "Registration",
-                        style: TextStyle(
-                          color: Color(0xff9CA3AF),
-                        ),
-                      ),
+                      child: isSigningUp
+                          ? CircularProgressIndicator(
+                              color: Colors.white,
+                            )
+                          : Text(
+                              "Registration",
+                              style: TextStyle(
+                                color: Color(0xff9CA3AF),
+                              ),
+                            ),
                     ),
                     onPressed: () {
-                      setState(() {
-                        if (formKey.currentState!.validate()) {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => HomePage()));
-                        }
-                      });
+                      _signUp();
                     },
                     style: ButtonStyle(
                       elevation: MaterialStatePropertyAll(0.7),
@@ -240,9 +179,7 @@ class _SignInFormState extends State<SignInForm> {
                         ),
                       ],
                     ),
-                    onPressed: () {
-                      singIn(context);
-                    },
+                    onPressed: () {},
                     style: ButtonStyle(
                       elevation: MaterialStatePropertyAll(0.5),
                       backgroundColor:
@@ -261,5 +198,28 @@ class _SignInFormState extends State<SignInForm> {
         ),
       ],
     );
+  }
+
+  void _signUp() async {
+    setState(() {
+      isSigningUp = true;
+    });
+
+    String username = _usernameController.text;
+    String email = _emailController.text;
+    String password = _passwordController.text;
+
+    User? user =
+        await _fireBaseAuthService.signUpWithEmailAndPassword(email, password);
+
+    setState(() {
+      isSigningUp = false;
+    });
+    if (user != null) {
+      showToast(message: "User is successfully created");
+      Navigator.pushNamed(context, "/home");
+    } else {
+      showToast(message: "Some error happend");
+    }
   }
 }

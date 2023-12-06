@@ -22,7 +22,8 @@ class FormContainerWidget extends StatefulWidget {
       this.onSaved,
       this.validator,
       this.onFieldSubmitted,
-      this.inputType});
+      this.inputType,
+      });
 
   @override
   _FormContainerWidgetState createState() => new _FormContainerWidgetState();

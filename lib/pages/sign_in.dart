@@ -22,15 +22,14 @@ class SignInForm extends StatefulWidget {
 class _SignInFormState extends State<SignInForm> {
   final FireBaseAuthService _fireBaseAuthService = FireBaseAuthService();
   bool isSigningUp = false;
-  TextEditingController _usernameController = TextEditingController();
-  TextEditingController _emailController = TextEditingController();
-  TextEditingController _passwordController = TextEditingController();
-
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  TextEditingController confirmPassword = TextEditingController();
   @override
   void dispose() {
-    _usernameController.dispose();
-    _emailController.dispose();
-    _passwordController.dispose();
+    emailController.dispose();
+    passwordController.dispose();
+    confirmPassword.dispose();
     // TODO: implement dispose
     super.dispose();
   }
@@ -42,6 +41,15 @@ class _SignInFormState extends State<SignInForm> {
   late SMITrigger reset;
 
   late SMITrigger confetti;
+
+  Future<void> signUp() async {
+    if (passwordController.text != confirmPassword.text) {
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text("New password not match!")));
+    }
+
+                    
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -71,7 +79,7 @@ class _SignInFormState extends State<SignInForm> {
                   height: MediaQuery.of(context).size.height * 0.063,
                   width: MediaQuery.of(context).size.width * 0.85,
                   child: FormContainerWidget(
-                    controller: _usernameController,
+                    controller: emailController,
                     hintText: "Enter your full name",
                     isPasswordField: false,
                   ),
@@ -95,7 +103,7 @@ class _SignInFormState extends State<SignInForm> {
                   child: FormContainerWidget(
                     hintText: "Ex: nameusername@email.com",
                     isPasswordField: false,
-                    controller: _emailController,
+                    controller: passwordController,
                   ),
                 ),
               ),
@@ -115,6 +123,7 @@ class _SignInFormState extends State<SignInForm> {
                   height: MediaQuery.of(context).size.height * 0.063,
                   width: MediaQuery.of(context).size.width * 0.85,
                   child: FormContainerWidget(
+                    controller: confirmPassword,
                     isPasswordField: true,
                     hintText: "**** **** ****",
                   ),
@@ -140,9 +149,7 @@ class _SignInFormState extends State<SignInForm> {
                               ),
                             ),
                     ),
-                    onPressed: () {
-                      _signUp();
-                    },
+                    onPressed: () {},
                     style: ButtonStyle(
                       elevation: MaterialStatePropertyAll(0.7),
                       backgroundColor:
@@ -200,26 +207,26 @@ class _SignInFormState extends State<SignInForm> {
     );
   }
 
-  void _signUp() async {
-    setState(() {
-      isSigningUp = true;
-    });
+  // void _signUp() async {
+  //   setState(() {
+  //     isSigningUp = true;
+  //   });
 
-    String username = _usernameController.text;
-    String email = _emailController.text;
-    String password = _passwordController.text;
+  //   String username = _usernameController.text;
+  //   String email = _emailController.text;
+  //   String password = _passwordController.text;
 
-    User? user =
-        await _fireBaseAuthService.signUpWithEmailAndPassword(email, password);
+  //   User? user =
+  //       await _fireBaseAuthService.signUpWithEmailAndPassword(email, password);
 
-    setState(() {
-      isSigningUp = false;
-    });
-    if (user != null) {
-      showToast(message: "User is successfully created");
-      Navigator.pushNamed(context, "/home");
-    } else {
-      showToast(message: "Some error happend");
-    }
-  }
+  //   setState(() {
+  //     isSigningUp = false;
+  //   });
+  //   if (user != null) {
+  //     showToast(message: "User is successfully created");
+  //     Navigator.pushNamed(context, "/home");
+  //   } else {
+  //     showToast(message: "Some error happend");
+  //   }
+  // }
 }

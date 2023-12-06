@@ -1,9 +1,11 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:rive/rive.dart';
-
 import 'package:web_source/pages/home_page.dart';
+import 'package:web_source/services/auth_service.dart';
+import 'package:web_source/widgets/form_container_widget.dart';
 import 'package:web_source/widgets/key.dart';
 
 class SignInForm extends StatefulWidget {
@@ -16,6 +18,19 @@ class SignInForm extends StatefulWidget {
 }
 
 class _SignInFormState extends State<SignInForm> {
+  bool _isSigning = false;
+  final FireBaseAuthService _fireBaseAuthService = FireBaseAuthService();
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  TextEditingController _emailController = TextEditingController();
+  TextEditingController _passwordController = TextEditingController();
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    // TODO: implement dispose
+    super.dispose();
+  }
+
   bool isShowLoading = false;
   bool isShowConfetti = false;
   late SMITrigger error;
@@ -115,16 +130,9 @@ class _SignInFormState extends State<SignInForm> {
                 child: SizedBox(
                   height: MediaQuery.of(context).size.height * 0.063,
                   width: MediaQuery.of(context).size.width * 0.85,
-                  child: TextFormField(
-                    decoration: InputDecoration(
-                      hintText: "Enter your full name",
-                      hintStyle:
-                          TextStyle(color: Color(0xff9CA3AF), fontSize: 12),
-                      contentPadding: EdgeInsets.all(8),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                    ),
+                  child: FormContainerWidget(
+                    hintText: "Enter your full name",
+                    isPasswordField: false,
                   ),
                 ),
               ),
@@ -143,16 +151,10 @@ class _SignInFormState extends State<SignInForm> {
                 child: SizedBox(
                   height: MediaQuery.of(context).size.height * 0.063,
                   width: MediaQuery.of(context).size.width * 0.85,
-                  child: TextFormField(
-                    decoration: InputDecoration(
-                      hintText: "Ex: nameusername@gmail.com",
-                      hintStyle:
-                          TextStyle(color: Color(0xff9CA3AF), fontSize: 12),
-                      contentPadding: EdgeInsets.all(8),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                    ),
+                  child: FormContainerWidget(
+                    hintText: "Ex: nameusername@email.com",
+                    isPasswordField: false,
+                    controller: _emailController,
                   ),
                 ),
               ),
@@ -171,17 +173,8 @@ class _SignInFormState extends State<SignInForm> {
                 child: SizedBox(
                   height: MediaQuery.of(context).size.height * 0.063,
                   width: MediaQuery.of(context).size.width * 0.85,
-                  child: TextFormField(
-                    obscureText: true,
-                    decoration: InputDecoration(
-                      hintText: "**** **** ****",
-                      hintStyle:
-                          TextStyle(color: Color(0xff9CA3AF), fontSize: 12),
-                      contentPadding: EdgeInsets.all(8),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                    ),
+                  child: FormContainerWidget(
+                    hintText: "**** **** ****",
                   ),
                 ),
               ),
@@ -193,10 +186,12 @@ class _SignInFormState extends State<SignInForm> {
                   width: MediaQuery.of(context).size.width * 0.6,
                   height: MediaQuery.of(context).size.height * 0.061,
                   child: ElevatedButton(
-                    child: Text(
-                      "Registration",
-                      style: TextStyle(
-                        color: Color(0xff9CA3AF),
+                    child: Center(
+                      child:_isSigning? CircularProgressIndicator(color: Colors.white,): Text(
+                        "Registration",
+                        style: TextStyle(
+                          color: Color(0xff9CA3AF),
+                        ),
                       ),
                     ),
                     onPressed: () {

@@ -11,19 +11,21 @@ class FormContainerWidget extends StatefulWidget {
   final FormFieldValidator<String>? validator;
   final ValueChanged<String>? onFieldSubmitted;
   final TextInputType? inputType;
+  final FormFieldSetter<String> onChanged;
 
-  const FormContainerWidget(
-      {this.controller,
-      this.isPasswordField,
-      this.fieldKey,
-      this.hintText,
-      this.labelText,
-      this.helperText,
-      this.onSaved,
-      this.validator,
-      this.onFieldSubmitted,
-      this.inputType,
-      });
+  const FormContainerWidget({
+    required this.onChanged,
+    this.controller,
+    this.isPasswordField,
+    this.fieldKey,
+    this.hintText,
+    this.labelText,
+    this.helperText,
+    this.onSaved,
+    this.validator,
+    this.onFieldSubmitted,
+    this.inputType,
+  });
 
   @override
   _FormContainerWidgetState createState() => new _FormContainerWidgetState();
@@ -42,6 +44,7 @@ class _FormContainerWidgetState extends State<FormContainerWidget> {
         borderRadius: BorderRadius.circular(12),
       ),
       child: new TextFormField(
+        onChanged: widget.onChanged,
         style: TextStyle(color: Colors.black, fontSize: 12),
         controller: widget.controller,
         keyboardType: widget.inputType,
@@ -53,7 +56,6 @@ class _FormContainerWidgetState extends State<FormContainerWidget> {
         decoration: new InputDecoration(
           contentPadding: EdgeInsets.all(5),
           border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
-          filled: true,
           hintText: widget.hintText,
           hintStyle: TextStyle(color: Colors.black45),
           suffixIcon: new GestureDetector(

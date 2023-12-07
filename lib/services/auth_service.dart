@@ -2,14 +2,17 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:web_source/model/toast.dart';
 
-class FireBaseAuthService extends ChangeNotifier{
+class FireBaseAuthService extends ChangeNotifier {
   FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
 
   Future<User?> signUpWithEmailAndPassword(
-      String email, String password) async {
+      String email, String password, String confirmPassword) async {
     try {
-      UserCredential credential = await _firebaseAuth
-          .createUserWithEmailAndPassword(email: email, password: password);
+      UserCredential credential =
+          await _firebaseAuth.createUserWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
       return credential.user;
     } on FirebaseException catch (e) {
       if (e.code == "email-already-use") {

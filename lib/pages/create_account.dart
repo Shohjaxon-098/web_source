@@ -5,7 +5,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:rive/rive.dart';
 import 'package:web_source/model/toast.dart';
-import 'package:web_source/pages/home_page.dart';
 import 'package:web_source/services/auth_service.dart';
 import 'package:web_source/widgets/form_container_widget.dart';
 import 'package:web_source/widgets/key.dart';
@@ -20,11 +19,13 @@ class SignInForm extends StatefulWidget {
 }
 
 class _SignInFormState extends State<SignInForm> {
+  bool inputTextNotNull = false;
   final FireBaseAuthService _fireBaseAuthService = FireBaseAuthService();
   bool isSigningUp = false;
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController confirmPassword = TextEditingController();
+  final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   @override
   void dispose() {
     emailController.dispose();
@@ -34,21 +35,46 @@ class _SignInFormState extends State<SignInForm> {
     super.dispose();
   }
 
-  bool isShowLoading = false;
-  bool isShowConfetti = false;
-  late SMITrigger error;
-  late SMITrigger success;
-  late SMITrigger reset;
+  Future<User?> signUp() async {
+    setState(() {
+      isSigningUp = true;
+    });
 
-  late SMITrigger confetti;
-
-  Future<void> signUp() async {
-    if (passwordController.text != confirmPassword.text) {
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text("New password not match!")));
+    setState(() {
+      isSigningUp = false;
+    });
+    User? user = await _fireBaseAuthService.signUpWithEmailAndPassword(
+        emailController.text, passwordController.text, confirmPassword.text);
+    if (user != null) {
+      Navigator.popAndPushNamed(context, "/home");
+      showToast(message: "User is successfully created");
+    } else {
+      showToast(message: "Some error happend");
     }
+  }
 
-                    
+  _createAccountWithGoogle() async {
+    final GoogleSignIn _googleSignIn = GoogleSignIn();
+
+    try {
+      final GoogleSignInAccount? googleSignInAccount =
+          await _googleSignIn.signIn();
+
+      if (googleSignInAccount != null) {
+        final GoogleSignInAuthentication googleSignInAuthentication =
+            await googleSignInAccount.authentication;
+
+        final AuthCredential credential = GoogleAuthProvider.credential(
+          idToken: googleSignInAuthentication.idToken,
+          accessToken: googleSignInAuthentication.accessToken,
+        );
+
+        await _firebaseAuth.signInWithCredential(credential);
+        Navigator.pushNamed(context, "/home");
+      }
+    } catch (e) {
+      showToast(message: "some error occured $e");
+    }
   }
 
   @override
@@ -66,28 +92,6 @@ class _SignInFormState extends State<SignInForm> {
               Padding(
                 padding: const EdgeInsets.only(left: 35),
                 child: const Text(
-                  "Full Name",
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: Color(0xff374151),
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(top: 5, left: 28, bottom: 15),
-                child: SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.063,
-                  width: MediaQuery.of(context).size.width * 0.85,
-                  child: FormContainerWidget(
-                    controller: emailController,
-                    hintText: "Enter your full name",
-                    isPasswordField: false,
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 35),
-                child: const Text(
                   "Email address ",
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
@@ -101,14 +105,25 @@ class _SignInFormState extends State<SignInForm> {
                   height: MediaQuery.of(context).size.height * 0.063,
                   width: MediaQuery.of(context).size.width * 0.85,
                   child: FormContainerWidget(
-                    hintText: "Ex: nameusername@email.com",
+                    onChanged: (text) {
+                      setState(() {
+                        if (emailController.text.length >= 2 &&
+                            passwordController.text.length >= 2 &&
+                            confirmPassword.text.length >= 2) {
+                          inputTextNotNull = true;
+                        } else {
+                          inputTextNotNull = false;
+                        }
+                      });
+                    },
+                    controller: emailController,
+                    hintText: "Ex: usernamename@gmail.com",
                     isPasswordField: false,
-                    controller: passwordController,
                   ),
                 ),
               ),
               Padding(
-                padding: EdgeInsets.only(left: 35),
+                padding: const EdgeInsets.only(left: 35),
                 child: const Text(
                   "Password",
                   style: TextStyle(
@@ -123,6 +138,50 @@ class _SignInFormState extends State<SignInForm> {
                   height: MediaQuery.of(context).size.height * 0.063,
                   width: MediaQuery.of(context).size.width * 0.85,
                   child: FormContainerWidget(
+                    onChanged: (value) {
+                      setState(() {
+                        if (emailController.text.length >= 2 &&
+                            passwordController.text.length >= 2 &&
+                            confirmPassword.text.length >= 2) {
+                          inputTextNotNull = true;
+                        } else {
+                          inputTextNotNull = false;
+                        }
+                      });
+                    },
+                    hintText: "**** **** ****",
+                    isPasswordField: true,
+                    controller: passwordController,
+                  ),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.only(left: 35),
+                child: const Text(
+                  "Confirm Password",
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Color(0xff374151),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 5, left: 28, bottom: 15),
+                child: SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.063,
+                  width: MediaQuery.of(context).size.width * 0.85,
+                  child: FormContainerWidget(
+                    onChanged: (value) {
+                      setState(() {
+                        if (emailController.text.length >= 2 &&
+                            passwordController.text.length >= 2 &&
+                            confirmPassword.text.length >= 2) {
+                          inputTextNotNull = true;
+                        } else {
+                          inputTextNotNull = false;
+                        }
+                      });
+                    },
                     controller: confirmPassword,
                     isPasswordField: true,
                     hintText: "**** **** ****",
@@ -132,37 +191,68 @@ class _SignInFormState extends State<SignInForm> {
               SizedBox(
                 height: 32,
               ),
-              Center(
-                child: SizedBox(
-                  width: MediaQuery.of(context).size.width * 0.6,
-                  height: MediaQuery.of(context).size.height * 0.061,
-                  child: ElevatedButton(
-                    child: Center(
-                      child: isSigningUp
-                          ? CircularProgressIndicator(
-                              color: Colors.white,
-                            )
-                          : Text(
+              inputTextNotNull
+                  ? Center(
+                      child: SizedBox(
+                        width: MediaQuery.of(context).size.width * 0.6,
+                        height: MediaQuery.of(context).size.height * 0.061,
+                        child: ElevatedButton(
+                          child: Center(
+                            child: isSigningUp
+                                ? CircularProgressIndicator(
+                                    color: Colors.black,
+                                    strokeWidth: 4,
+                                  )
+                                : Text(
+                                    "Registration",
+                                    style: TextStyle(
+                                      color: Color(0xffFFFFFF),
+                                    ),
+                                  ),
+                          ),
+                          onPressed: () {
+                            signUp();
+                          },
+                          style: ButtonStyle(
+                            elevation: MaterialStatePropertyAll(0.7),
+                            backgroundColor:
+                                MaterialStatePropertyAll(Color(0xff32B768)),
+                            shape: MaterialStatePropertyAll(
+                              RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    )
+                  : Center(
+                      child: SizedBox(
+                        width: MediaQuery.of(context).size.width * 0.6,
+                        height: MediaQuery.of(context).size.height * 0.061,
+                        child: ElevatedButton(
+                          child: Center(
+                            child: Text(
                               "Registration",
                               style: TextStyle(
                                 color: Color(0xff9CA3AF),
                               ),
                             ),
-                    ),
-                    onPressed: () {},
-                    style: ButtonStyle(
-                      elevation: MaterialStatePropertyAll(0.7),
-                      backgroundColor:
-                          MaterialStatePropertyAll(Color(0xffE5E5E5)),
-                      shape: MaterialStatePropertyAll(
-                        RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
+                          ),
+                          onPressed: () {},
+                          style: ButtonStyle(
+                            elevation: MaterialStatePropertyAll(0.7),
+                            backgroundColor:
+                                MaterialStatePropertyAll(Color(0xffE5E5E5)),
+                            shape: MaterialStatePropertyAll(
+                              RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                            ),
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                ),
-              ),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 120, vertical: 3),
                 child: Divider(),
@@ -186,7 +276,9 @@ class _SignInFormState extends State<SignInForm> {
                         ),
                       ],
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      _createAccountWithGoogle();
+                    },
                     style: ButtonStyle(
                       elevation: MaterialStatePropertyAll(0.5),
                       backgroundColor:

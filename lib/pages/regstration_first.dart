@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:web_source/pages/sign_in.dart';
+import 'package:web_source/pages/create_account.dart';
+import 'package:web_source/pages/login.dart';
 
 class RegstrationPage extends StatefulWidget {
   const RegstrationPage({super.key});
@@ -86,7 +87,7 @@ class _RegstrationPageState extends State<RegstrationPage> {
                         Color(0xffD1FAE5),
                       )),
                   onPressed: () {},
-                  child: const Text(
+                  child: Text(
                     "Login",
                     style: TextStyle(
                         fontWeight: FontWeight.bold,
@@ -192,12 +193,7 @@ class _BuildBottomSheetState extends State<BuildBottomSheet> {
             ),
             Expanded(
               child: TabBarView(
-                children: [
-                  SignInForm(),
-                  Center(
-                    child: Text("asdasd"),
-                  )
-                ],
+                children: [SignInForm(), LoginPage()],
               ),
             )
           ],

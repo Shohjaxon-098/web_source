@@ -3,8 +3,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:rive/rive.dart';
 import 'package:web_source/model/toast.dart';
+import 'package:web_source/pages/home_page.dart';
 import 'package:web_source/services/auth_service.dart';
 import 'package:web_source/widgets/form_container_widget.dart';
 import 'package:web_source/widgets/key.dart';
@@ -20,8 +22,8 @@ class SignInForm extends StatefulWidget {
 
 class _SignInFormState extends State<SignInForm> {
   bool inputTextNotNull = false;
-  final FireBaseAuthService _fireBaseAuthService = FireBaseAuthService();
-  bool isSigningUp = false;
+  final FirebaseAuthService _fireBaseAuthService = FirebaseAuthService();
+  bool _isSigning = false;
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController confirmPassword = TextEditingController();
@@ -35,25 +37,30 @@ class _SignInFormState extends State<SignInForm> {
     super.dispose();
   }
 
-  Future<User?> signUp() async {
+  void _createAccount() async {
     setState(() {
-      isSigningUp = true;
+      _isSigning = true;
     });
 
+    String email = emailController.text;
+    String password = passwordController.text;
+
+    User? user =
+        await _fireBaseAuthService.signInWithEmailAndPassword(email, password);
+
     setState(() {
-      isSigningUp = false;
+      _isSigning = false;
     });
-    User? user = await _fireBaseAuthService.signUpWithEmailAndPassword(
-        emailController.text, passwordController.text, confirmPassword.text);
+
     if (user != null) {
-      Navigator.popAndPushNamed(context, "/home");
-      showToast(message: "User is successfully created");
+      showToast(message: "User is successfully signed in");
+      Navigator.pushNamed(context, "/home");
     } else {
-      showToast(message: "Some error happend");
+      showToast(message: "some error occured");
     }
   }
 
-  _createAccountWithGoogle() async {
+  void _createAccountWithGoogle() async {
     final GoogleSignIn _googleSignIn = GoogleSignIn();
 
     try {
@@ -70,7 +77,11 @@ class _SignInFormState extends State<SignInForm> {
         );
 
         await _firebaseAuth.signInWithCredential(credential);
-        Navigator.pushNamed(context, "/home");
+        Navigator.pop(
+          context,
+          PageTransition(
+              child: HomePage(), type: PageTransitionType.rightToLeft),
+        );
       }
     } catch (e) {
       showToast(message: "some error occured $e");
@@ -198,9 +209,9 @@ class _SignInFormState extends State<SignInForm> {
                         height: MediaQuery.of(context).size.height * 0.061,
                         child: ElevatedButton(
                           child: Center(
-                            child: isSigningUp
+                            child: _isSigning
                                 ? CircularProgressIndicator(
-                                    color: Colors.black,
+                                    color: Colors.white,
                                     strokeWidth: 4,
                                   )
                                 : Text(
@@ -211,7 +222,7 @@ class _SignInFormState extends State<SignInForm> {
                                   ),
                           ),
                           onPressed: () {
-                            signUp();
+                            _createAccount();
                           },
                           style: ButtonStyle(
                             elevation: MaterialStatePropertyAll(0.7),

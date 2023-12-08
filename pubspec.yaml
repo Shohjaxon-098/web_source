@@ -40,9 +40,12 @@ dependencies:
   rive: ^0.12.3
   firebase_auth: ^4.15.0
   firebase_core: ^2.24.0
-  provider: any
   fluttertoast: ^8.2.2
   google_sign_in: ^6.1.5
+  page_transition: ^2.1.0
+  provider: ^6.1.1
+  cloud_firestore: ^4.13.4
+  firebase_messaging: ^14.7.7
 dev_dependencies:
   flutter_test:
     sdk: flutter

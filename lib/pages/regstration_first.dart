@@ -16,110 +16,112 @@ class _RegstrationPageState extends State<RegstrationPage> {
     return Scaffold(
       body: Expanded(
         child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              SvgPicture.asset(
-                "assets/OrderSuccess.svg",
-              ),
-              const SizedBox(
-                height: 55,
-              ),
-              const Text(
-                "Welcome",
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
-              ),
-              const SizedBox(
-                height: 8,
-              ),
-              const Text(
-                "Before enjoying Foodmedia services\n                Please register first",
-                style: TextStyle(fontSize: 14),
-              ),
-              const SizedBox(
-                height: 95,
-              ),
-              SizedBox(
-                height: MediaQuery.of(context).size.height * 0.075,
-                width: MediaQuery.of(context).size.width * 0.70,
-                child: ElevatedButton(
-                  style: ButtonStyle(
-                    elevation: const MaterialStatePropertyAll(0),
-                    backgroundColor: const MaterialStatePropertyAll(
-                      Color(0xff32B768),
-                    ),
-                    shape: MaterialStatePropertyAll(
-                      RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                    ),
-                  ),
-                  onPressed: () {
-                    showModalBottomSheet(
-                        scrollControlDisabledMaxHeightRatio: 0.76,
-                        context: context,
-                        builder: (context) => const BuildBottomSheet());
-                  },
-                  child: const Text(
-                    "Create Account",
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 14,
-                        color: Colors.white),
-                  ),
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SvgPicture.asset(
+                  "assets/OrderSuccess.svg",
                 ),
-              ),
-              const SizedBox(
-                height: 16,
-              ),
-              SizedBox(
-                height: MediaQuery.of(context).size.height * 0.075,
-                width: MediaQuery.of(context).size.width * 0.70,
-                child: ElevatedButton(
-                  style: ButtonStyle(
+                const SizedBox(
+                  height: 55,
+                ),
+                const Text(
+                  "Welcome",
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
+                ),
+                const SizedBox(
+                  height: 8,
+                ),
+                const Text(
+                  "Before enjoying Foodmedia services\n                Please register first",
+                  style: TextStyle(fontSize: 14),
+                ),
+                const SizedBox(
+                  height: 95,
+                ),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.075,
+                  width: MediaQuery.of(context).size.width * 0.70,
+                  child: ElevatedButton(
+                    style: ButtonStyle(
+                      elevation: const MaterialStatePropertyAll(0),
+                      backgroundColor: const MaterialStatePropertyAll(
+                        Color(0xff32B768),
+                      ),
                       shape: MaterialStatePropertyAll(
                         RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(12),
                         ),
                       ),
-                      elevation: const MaterialStatePropertyAll(0),
-                      backgroundColor: const MaterialStatePropertyAll(
-                        Color(0xffD1FAE5),
-                      )),
-                  onPressed: () {},
-                  child: Text(
-                    "Login",
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 14,
-                        color: Color(0xff10B981)),
+                    ),
+                    onPressed: () {
+                      showModalBottomSheet(
+                          scrollControlDisabledMaxHeightRatio: 0.76,
+                          context: context,
+                          builder: (context) => const BuildBottomSheet());
+                    },
+                    child: const Text(
+                      "Create Account",
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 14,
+                          color: Colors.white),
+                    ),
                   ),
                 ),
-              ),
-              const SizedBox(
-                height: 26,
-              ),
-              Center(
-                child: RichText(
-                  text: const TextSpan(
-                    style: TextStyle(color: Colors.black, fontSize: 12),
-                    children: <TextSpan>[
-                      TextSpan(
-                          text:
-                              "By Logging In Or Registering, You Have Agreed To "),
-                      TextSpan(
-                          text:
-                              "The Terms And\n                                Conditions ",
-                          style: TextStyle(color: Color(0xff32B768))),
-                      TextSpan(text: "And "),
-                      TextSpan(
-                          text: "Privacy Policy.",
-                          style: TextStyle(color: Color(0xff32B768))),
-                    ],
+                const SizedBox(
+                  height: 16,
+                ),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.075,
+                  width: MediaQuery.of(context).size.width * 0.70,
+                  child: ElevatedButton(
+                    style: ButtonStyle(
+                        shape: MaterialStatePropertyAll(
+                          RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                        ),
+                        elevation: const MaterialStatePropertyAll(0),
+                        backgroundColor: const MaterialStatePropertyAll(
+                          Color(0xffD1FAE5),
+                        )),
+                    onPressed: () {},
+                    child: Text(
+                      "Login",
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 14,
+                          color: Color(0xff10B981)),
+                    ),
                   ),
                 ),
-              )
-            ],
+                const SizedBox(
+                  height: 26,
+                ),
+                Center(
+                  child: RichText(
+                    text: const TextSpan(
+                      style: TextStyle(color: Colors.black, fontSize: 12),
+                      children: <TextSpan>[
+                        TextSpan(
+                            text:
+                                "By Logging In Or Registering, You Have Agreed To "),
+                        TextSpan(
+                            text:
+                                "The Terms And\n                                Conditions ",
+                            style: TextStyle(color: Color(0xff32B768))),
+                        TextSpan(text: "And "),
+                        TextSpan(
+                            text: "Privacy Policy.",
+                            style: TextStyle(color: Color(0xff32B768))),
+                      ],
+                    ),
+                  ),
+                )
+              ],
+            ),
           ),
         ),
       ),

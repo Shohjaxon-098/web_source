@@ -17,7 +17,7 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   bool _isSigning = false;
-  final FireBaseAuthService _auth = FireBaseAuthService();
+  final FirebaseAuthService _auth = FirebaseAuthService();
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   bool inputTextNotNull = false;
   bool isSigningUp = false;
@@ -31,29 +31,28 @@ class _LoginPageState extends State<LoginPage> {
     super.dispose();
   }
 
-  Future<void> _login() async {
+   void _login() async {
     setState(() {
-      _isSigning = true;
+      isSigningUp = true;
     });
 
     String email = _emailController.text;
     String password = _passwordController.text;
 
-    User? user = await _auth.signInWithEmailAndPassword(email, password);
+    User? user = await _auth.signUpWithEmailAndPassword(email, password);
 
     setState(() {
-      _isSigning = false;
+      isSigningUp = false;
     });
-
     if (user != null) {
-      showToast(message: "User is successfully signed in");
+      showToast(message: "User is successfully created");
       Navigator.pushNamed(context, "/home");
     } else {
-      showToast(message: "some error occured");
+      showToast(message: "Some error happend");
     }
   }
 
-  _loginWithGoogle() async {
+  void _loginWithGoogle() async {
     final GoogleSignIn _googleSignIn = GoogleSignIn();
 
     try {

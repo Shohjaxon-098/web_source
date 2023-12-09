@@ -3,7 +3,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:web_source/model/toast.dart';
+import 'package:web_source/screens/forgot_password.dart';
 import 'package:web_source/services/auth_service.dart';
 import 'package:web_source/widgets/form_container_widget.dart';
 import 'package:web_source/widgets/key.dart';
@@ -31,7 +33,7 @@ class _LoginPageState extends State<LoginPage> {
     super.dispose();
   }
 
-   void _login() async {
+  Future<void> _login() async {
     setState(() {
       isSigningUp = true;
     });
@@ -39,14 +41,14 @@ class _LoginPageState extends State<LoginPage> {
     String email = _emailController.text;
     String password = _passwordController.text;
 
-    User? user = await _auth.signUpWithEmailAndPassword(email, password);
+    User? user = await _auth.signInWithEmailAndPassword(email, password);
 
     setState(() {
       isSigningUp = false;
     });
     if (user != null) {
-      showToast(message: "User is successfully created");
-      Navigator.pushNamed(context, "/home");
+      showToast(message: "User is successfully signed in");
+      Navigator.popAndPushNamed(context, "/home");
     } else {
       showToast(message: "Some error happend");
     }
@@ -69,7 +71,7 @@ class _LoginPageState extends State<LoginPage> {
         );
 
         await _firebaseAuth.signInWithCredential(credential);
-        Navigator.pushNamed(context, "/home");
+        Navigator.pushReplacementNamed(context, "/home");
       }
     } catch (e) {
       showToast(message: "some error occured $e");
@@ -86,7 +88,7 @@ class _LoginPageState extends State<LoginPage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(
-                height: 36,
+                height: 25,
               ),
               Padding(
                 padding: const EdgeInsets.only(left: 35),
@@ -152,25 +154,34 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ),
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  GestureDetector(
-                    onTap: () {},
-                    child: Text(
-                      "Forgot Password",
-                      style: TextStyle(
-                          color: Color(0xff32B768),
-                          fontWeight: FontWeight.w700),
+              SizedBox(
+                height: 5,
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 36),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            PageTransition(
+                                child: ForgotPassword(),
+                                type: PageTransitionType.rightToLeftWithFade));
+                      },
+                      child: Text(
+                        "Forgot Password",
+                        style: TextStyle(
+                            color: Color(0xff32B768),
+                            fontWeight: FontWeight.w700),
+                      ),
                     ),
-                  ),
-                  SizedBox(
-                    width: 35,
-                  ),
-                ],
+                  ],
+                ),
               ),
               SizedBox(
-                height: 18,
+                height: 25,
               ),
               inputTextNotNull
                   ? Center(
@@ -181,18 +192,18 @@ class _LoginPageState extends State<LoginPage> {
                           child: Center(
                             child: isSigningUp
                                 ? CircularProgressIndicator(
-                                    color: Colors.black,
+                                    color: Colors.white,
                                     strokeWidth: 4,
                                   )
                                 : Text(
-                                    "Registration",
+                                    "Login",
                                     style: TextStyle(
                                       color: Color(0xffFFFFFF),
                                     ),
                                   ),
                           ),
                           onPressed: () {
-                            // signIn();
+                            _login();
                           },
                           style: ButtonStyle(
                             elevation: MaterialStatePropertyAll(0.7),

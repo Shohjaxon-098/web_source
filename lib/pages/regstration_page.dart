@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:web_source/pages/create_account.dart';
-import 'package:web_source/pages/login.dart';
+import 'package:web_source/screens/create_account.dart';
+import 'package:web_source/screens/login.dart';
+import 'package:web_source/widgets/key.dart';
 
 class RegstrationPage extends StatefulWidget {
   const RegstrationPage({super.key});
@@ -59,7 +60,7 @@ class _RegstrationPageState extends State<RegstrationPage> {
                       showModalBottomSheet(
                           scrollControlDisabledMaxHeightRatio: 0.76,
                           context: context,
-                          builder: (context) => const BuildBottomSheet());
+                          builder: (context) => BuildBottomSheet());
                     },
                     child: const Text(
                       "Create Account",
@@ -87,7 +88,12 @@ class _RegstrationPageState extends State<RegstrationPage> {
                         backgroundColor: const MaterialStatePropertyAll(
                           Color(0xffD1FAE5),
                         )),
-                    onPressed: () {},
+                    onPressed: () {
+                      showModalBottomSheet(
+                          scrollControlDisabledMaxHeightRatio: 0.77,
+                          context: context,
+                          builder: (context) => BuildBottomSheetLogin());
+                    },
                     child: Text(
                       "Login",
                       style: TextStyle(
@@ -133,7 +139,7 @@ class BuildBottomSheet extends StatefulWidget {
   const BuildBottomSheet({super.key});
 
   @override
-  State<BuildBottomSheet> createState() => _BuildBottomSheetState();
+  _BuildBottomSheetState createState() => _BuildBottomSheetState();
 }
 
 class _BuildBottomSheetState extends State<BuildBottomSheet> {
@@ -196,6 +202,82 @@ class _BuildBottomSheetState extends State<BuildBottomSheet> {
             Expanded(
               child: TabBarView(
                 children: [SignInForm(), LoginPage()],
+              ),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class BuildBottomSheetLogin extends StatefulWidget {
+  const BuildBottomSheetLogin({super.key});
+
+  @override
+  _BuildBottomSheetLoginState createState() => _BuildBottomSheetLoginState();
+}
+
+class _BuildBottomSheetLoginState extends State<BuildBottomSheetLogin> {
+  int current = 0;
+
+  @override
+  Widget build(BuildContext context) {
+    return DefaultTabController(
+      length: 2,
+      child: AnimatedContainer(
+        duration: Duration(milliseconds: 400),
+        width: double.infinity,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Container(
+              margin: const EdgeInsets.only(top: 23),
+              width: 48,
+              decoration: ShapeDecoration(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15),
+                  side: const BorderSide(
+                    width: 4,
+                    strokeAlign: BorderSide.strokeAlignCenter,
+                    color: Color(0xFFD2D4D8),
+                  ),
+                ),
+              ),
+            ),
+            const Padding(
+              padding: EdgeInsets.only(top: 40),
+              child: TabBar(
+                physics: ClampingScrollPhysics(),
+                indicatorSize: TabBarIndicatorSize.label,
+                dividerColor: Colors.transparent,
+                indicatorColor: Color(0xff32B768),
+                unselectedLabelColor: Color(0xff89909E),
+                labelColor: Color(0xff32B768),
+                tabs: [
+                  Text(
+                    "Login",
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16,
+                    ),
+                  ),
+                  Text(
+                    "Create Account",
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(
+              height: 25,
+            ),
+            Expanded(
+              child: TabBarView(
+                children: [LoginPage(), SignInForm()],
               ),
             )
           ],

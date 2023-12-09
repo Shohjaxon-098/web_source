@@ -5,7 +5,7 @@ import 'package:web_source/firebase_options.dart';
 import 'package:web_source/pages/home_page.dart';
 
 import 'package:web_source/pages/onboarding.dart';
-import 'package:web_source/pages/regstration_first.dart';
+import 'package:web_source/pages/regstration_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -32,7 +32,6 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       routes: {
         "/": (context) => OnBoardingPage(),
-        "/login": (context) => RegstrationPage(),
         "/home": (context) => HomePage(),
       },
     );

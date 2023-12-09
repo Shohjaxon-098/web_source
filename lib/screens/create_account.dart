@@ -26,13 +26,13 @@ class _SignInFormState extends State<SignInForm> {
   bool _isSigning = false;
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
-  TextEditingController confirmPassword = TextEditingController();
+  TextEditingController confirmPasswordcontroller = TextEditingController();
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   @override
   void dispose() {
     emailController.dispose();
     passwordController.dispose();
-    confirmPassword.dispose();
+    confirmPasswordcontroller.dispose();
     // TODO: implement dispose
     super.dispose();
   }
@@ -44,17 +44,18 @@ class _SignInFormState extends State<SignInForm> {
 
     String email = emailController.text;
     String password = passwordController.text;
+    String confirmPassword = confirmPasswordcontroller.text;
 
-    User? user =
-        await _fireBaseAuthService.signInWithEmailAndPassword(email, password);
+    User? user = await _fireBaseAuthService.signUpWithEmailAndPassword(
+        email, password, confirmPassword);
 
     setState(() {
       _isSigning = false;
     });
 
     if (user != null) {
-      showToast(message: "User is successfully signed in");
-      Navigator.pushNamed(context, "/home");
+      showToast(message: "User is successfully created");
+      Navigator.popAndPushNamed(context, "/home");
     } else {
       showToast(message: "some error occured");
     }
@@ -120,7 +121,7 @@ class _SignInFormState extends State<SignInForm> {
                       setState(() {
                         if (emailController.text.length >= 2 &&
                             passwordController.text.length >= 2 &&
-                            confirmPassword.text.length >= 2) {
+                            confirmPasswordcontroller.text.length >= 2) {
                           inputTextNotNull = true;
                         } else {
                           inputTextNotNull = false;
@@ -153,7 +154,7 @@ class _SignInFormState extends State<SignInForm> {
                       setState(() {
                         if (emailController.text.length >= 2 &&
                             passwordController.text.length >= 2 &&
-                            confirmPassword.text.length >= 2) {
+                            confirmPasswordcontroller.text.length >= 2) {
                           inputTextNotNull = true;
                         } else {
                           inputTextNotNull = false;
@@ -186,14 +187,14 @@ class _SignInFormState extends State<SignInForm> {
                       setState(() {
                         if (emailController.text.length >= 2 &&
                             passwordController.text.length >= 2 &&
-                            confirmPassword.text.length >= 2) {
+                            confirmPasswordcontroller.text.length >= 2) {
                           inputTextNotNull = true;
                         } else {
                           inputTextNotNull = false;
                         }
                       });
                     },
-                    controller: confirmPassword,
+                    controller: confirmPasswordcontroller,
                     isPasswordField: true,
                     hintText: "**** **** ****",
                   ),

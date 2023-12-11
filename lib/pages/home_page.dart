@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:web_source/widgets/key.dart';
+import 'package:web_source/pages/map_page.dart';
+
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -16,7 +17,13 @@ class _HomePageState extends State<HomePage> {
         title: Row(
           children: [
             Icon(Icons.location_on_rounded),
-            Text(""),
+            GestureDetector(
+              child: Text("Navoiy"),
+              onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => MapPage()));
+              },
+            ),
           ],
         ),
         centerTitle: true,

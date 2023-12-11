@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:page_transition/page_transition.dart';
-import 'package:rive/rive.dart';
 import 'package:web_source/model/toast.dart';
 import 'package:web_source/pages/home_page.dart';
 import 'package:web_source/services/auth_service.dart';

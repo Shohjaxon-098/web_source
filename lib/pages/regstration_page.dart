@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:web_source/screens/create_account.dart';
 import 'package:web_source/screens/login.dart';
-import 'package:web_source/widgets/key.dart';
+
 
 class RegstrationPage extends StatefulWidget {
   const RegstrationPage({super.key});

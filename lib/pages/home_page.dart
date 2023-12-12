@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:web_source/pages/map_page.dart';
 
-
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
@@ -15,6 +14,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
         title: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Icon(Icons.location_on_rounded),
             GestureDetector(
@@ -26,7 +26,6 @@ class _HomePageState extends State<HomePage> {
             ),
           ],
         ),
-        centerTitle: true,
       ),
       drawer: Drawer(),
       body: Container(),

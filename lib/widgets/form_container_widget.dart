@@ -55,9 +55,13 @@ class _FormContainerWidgetState extends State<FormContainerWidget> {
         onFieldSubmitted: widget.onFieldSubmitted,
         decoration: new InputDecoration(
           contentPadding: EdgeInsets.all(5),
-          border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(11)),
           hintText: widget.hintText,
-          hintStyle: TextStyle(color: Colors.black45),
+          hintStyle: TextStyle(
+              color: Color(
+                0xff9CA3AF,
+              ),
+              fontSize: 12),
           suffixIcon: new GestureDetector(
             onTap: () {
               setState(() {

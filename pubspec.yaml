@@ -52,9 +52,10 @@ dependencies:
   location: ^5.0.3
   firebase_core_web: ^2.8.1
   equatable: ^2.0.5
-  intl: ^0.18.1
+  intl: ^0.19.0
   geolocator: ^10.1.0
   flutter_carousel_widget: ^2.2.0
+  http: ^1.1.2
 dev_dependencies:
   flutter_test:
     sdk: flutter

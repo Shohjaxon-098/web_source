@@ -4,6 +4,7 @@ import 'package:flutter_carousel_widget/flutter_carousel_widget.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:web_source/pages/map_page.dart';
 import 'package:web_source/widgets/form_container_widget.dart';
+import 'package:web_source/widgets/recipe_card.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -114,8 +115,51 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
               Container(
+                padding: EdgeInsets.only(left: 18),
+                width: double.infinity,
                 height: h * 0.3,
-                color: Colors.yellow,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 20),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "Today New Arivable",
+                                style: TextStyle(
+                                    fontSize: 18, fontWeight: FontWeight.bold),
+                              ),
+                              Text(
+                                "Best of the today  food list update",
+                                style: TextStyle(color: Color(0xff6B7280)),
+                              ),
+                            ],
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(right: 17),
+                            child: GestureDetector(
+                              onTap: () {},
+                              child: Text(
+                                "See All >",
+                                style: TextStyle(
+                                    fontSize: 16, color: Color(0xff6B7280)),
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                    RecipeCard(
+                        title: "Chicken Biryani",
+                        location: "Navoi",
+                        image: "assets/food1.png"),
+                  ],
+                ),
               ),
               Expanded(
                   child: Container(

@@ -15,8 +15,9 @@ class RecipeCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: 148,
-      height: 196,
-      padding: EdgeInsets.all(10),
+      height: 206,
+      padding: EdgeInsets.all(15
+      ),
       decoration: BoxDecoration(
         boxShadow: [
           BoxShadow(

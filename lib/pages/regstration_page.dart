@@ -3,7 +3,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:web_source/screens/create_account.dart';
 import 'package:web_source/screens/login.dart';
 
-
 class RegstrationPage extends StatefulWidget {
   const RegstrationPage({super.key});
 
@@ -15,11 +14,10 @@ class _RegstrationPageState extends State<RegstrationPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Expanded(
-        child: Center(
+      body: Center(
+        child: Expanded(  
           child: SingleChildScrollView(
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 SvgPicture.asset(
                   "assets/OrderSuccess.svg",

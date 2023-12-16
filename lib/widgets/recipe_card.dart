@@ -16,16 +16,11 @@ class RecipeCard extends StatelessWidget {
     return Container(
       width: 148,
       height: 206,
-      padding: EdgeInsets.all(15
-      ),
+      padding: EdgeInsets.all(15),
       decoration: BoxDecoration(
         boxShadow: [
           BoxShadow(
             color: Colors.black.withOpacity(0.6),
-            offset: Offset(
-              0.0,
-              10.0,
-            ),
             blurRadius: 10.0,
             spreadRadius: -6.0,
           ),

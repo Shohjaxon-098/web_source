@@ -59,7 +59,7 @@ class RecipeCard extends StatelessWidget {
                     children: [
                       SvgPicture.asset("assets/Frame.svg"),
                       Text(
-                        "Ambrosia Hotel &\nRestaurant",
+                        location,
                         style:
                             TextStyle(color: Color(0xff6B7280), fontSize: 11),
                       ),

@@ -11,6 +11,21 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  List<String> _itemslocation = [
+    "Ambrosia Hotel &\nRestaurant",
+    "Handi Restaurant,\nChittagong",
+    "Ambrosia Hotel &\nRestaurant"
+  ];
+  List<String> _itemstitle = [
+    "Chicken Biryani",
+    "Sauce Tonkatsu ",
+    "Chicken Katsu"
+  ];
+  List<String> _itemsimage = [
+    "assets/food1.png",
+    "assets/food2.png",
+    "assets/food3.png"
+  ];
   Future<void> _onRefresh() async {}
   @override
   Widget build(BuildContext context) {
@@ -122,13 +137,13 @@ class _HomeScreenState extends State<HomeScreen> {
                       scrollDirection: Axis.horizontal,
                       child: Row(
                         children: List.generate(
-                          4,
+                          _itemsimage.length,
                           (index) => Padding(
                             padding: const EdgeInsets.all(10),
                             child: RecipeCard(
-                                title: "Chicken Biryani",
-                                location: "Navoi",
-                                image: "assets/food1.png"),
+                                title: _itemstitle[index],
+                                location: _itemslocation[index],
+                                image: _itemsimage[index]),
                           ),
                         ),
                       ),

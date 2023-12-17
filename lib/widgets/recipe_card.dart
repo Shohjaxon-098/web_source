@@ -3,19 +3,26 @@ import 'package:flutter_svg/svg.dart';
 
 class RecipeCard extends StatelessWidget {
   final String title;
-
+  final double c1w;
+  final double c1h;
+  final double c2w;
+  final double c2h;
   final String location;
   final String image;
   RecipeCard({
     required this.title,
     required this.location,
     required this.image,
+    required this.c1w,
+    required this.c1h,
+    required this.c2w,
+    required this.c2h,
   });
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 148,
-      height: 206,
+      width: c1w,
+      height: c1h,
       padding: EdgeInsets.all(15),
       decoration: BoxDecoration(
         boxShadow: [
@@ -68,8 +75,8 @@ class RecipeCard extends StatelessWidget {
                 )
               ],
             ),
-            width: 128,
-            height: 176,
+            width: c2w,
+            height: c2h,
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(16),

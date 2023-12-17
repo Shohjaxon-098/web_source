@@ -96,7 +96,7 @@ class _HomeScreenState extends State<HomeScreen> {
               Container(
                 padding: EdgeInsets.only(left: 18),
                 width: double.infinity,
-                height: h * 0.33,
+                height: h * 0.37,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -122,7 +122,9 @@ class _HomeScreenState extends State<HomeScreen> {
                           Padding(
                             padding: const EdgeInsets.only(right: 17),
                             child: GestureDetector(
-                              onTap: () {},
+                              onTap: () {
+                                Navigator.pushNamed(context, "/food");
+                              },
                               child: Text(
                                 "See All >",
                                 style: TextStyle(
@@ -141,6 +143,10 @@ class _HomeScreenState extends State<HomeScreen> {
                           (index) => Padding(
                             padding: const EdgeInsets.all(10),
                             child: RecipeCard(
+                                c1w: w * 0.4,
+                                c1h: h * 0.25,
+                                c2w: w * 0.35,
+                                c2h: h * 0.25,
                                 title: _itemstitle[index],
                                 location: _itemslocation[index],
                                 image: _itemsimage[index]),
@@ -152,7 +158,48 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
               Container(
-                color: Colors.green,
+                padding: EdgeInsets.only(left: 18),
+                width: double.infinity,
+                height: h * 0.34,
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 20),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "Booking Restaurant",
+                                style: TextStyle(
+                                    fontSize: 18, fontWeight: FontWeight.bold),
+                              ),
+                              Text(
+                                "Check your city Near by Restaurant",
+                                style: TextStyle(color: Color(0xff6B7280)),
+                              ),
+                            ],
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(right: 17),
+                            child: GestureDetector(
+                              onTap: () {
+                                Navigator.pushNamed(context, "/food");
+                              },
+                              child: Text(
+                                "See All >",
+                                style: TextStyle(
+                                    fontSize: 16, color: Color(0xff6B7280)),
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ],
           ),

@@ -50,7 +50,6 @@ class _HomeScreenState extends State<HomeScreen> {
     double w = MediaQuery.of(context).size.width;
     return Container(
       child: SingleChildScrollView(
-        scrollDirection: Axis.vertical,
         child: RefreshIndicator(
           onRefresh: _onRefresh,
           child: Column(
@@ -159,7 +158,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         children: List.generate(
                           _itemsimage.length,
                           (index) => Padding(
-                            padding: const EdgeInsets.all(10),
+                            padding: const EdgeInsets.all(8),
                             child: RecipeCard(
                                 c1w: w * 0.4,
                                 c1h: h * 0.25,
@@ -176,9 +175,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
               Container(
-                padding: EdgeInsets.only(left: 18),
+                padding: EdgeInsets.only(left: 10),
                 width: double.infinity,
-                height: h * 0.34,
                 child: Column(
                   children: [
                     Padding(
@@ -217,17 +215,18 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ),
                     SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
+                      scrollDirection: Axis.vertical,
                       child: Column(
                         children: List.generate(
                           _itemsHotelimage.length,
                           (index) => Padding(
-                            padding: const EdgeInsets.all(10),
+                            padding: const EdgeInsets.only(
+                                top: 6, bottom: 6, right: 17),
                             child: HotelCard(
                                 title: _itemsHoteltitle[index],
                                 location: _itemsHotellocation[index],
                                 image: _itemsHotelimage[index],
-                                c1w: 340,
+                                c1w: 400,
                                 c1h: 88,
                                 c2w: double.infinity,
                                 c2h: 64),

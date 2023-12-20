@@ -23,8 +23,19 @@ class RecipeCard extends StatelessWidget {
     return Container(
       width: c1w,
       height: c1h,
-      padding: EdgeInsets.all(15),
-     child: Stack(
+      padding: EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.6),
+            blurRadius: 10.0,
+            spreadRadius: -10.0,
+          ),
+        ],
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(16),
+      ),
+      child: Stack(
         children: [
           Container(
             child: Column(

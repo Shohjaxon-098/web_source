@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_carousel_widget/flutter_carousel_widget.dart';
+import 'package:web_source/widgets/hotel_cards.dart';
 import 'package:web_source/widgets/recipe_card.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -11,6 +12,22 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  List<String> _itemsHotelimage = [
+    "assets/hotel1.png",
+    "assets/hotel2.png",
+    "assets/hotel1.png",
+  ];
+  List<String> _itemsHoteltitle = [
+    "Chicken Biryani",
+    "Sauce Tonkatsu ",
+    "Chicken Katsu"
+  ];
+  List<String> _itemsHotellocation = [
+    "kazi Deiry, Taiger Pass\nChittagong",
+    "Zakir Hossain Rd,\nChittagong",
+    "6 Surson Road,\nChittagong"
+  ];
+
   List<String> _itemslocation = [
     "Ambrosia Hotel &\nRestaurant",
     "Handi Restaurant,\nChittagong",
@@ -33,6 +50,7 @@ class _HomeScreenState extends State<HomeScreen> {
     double w = MediaQuery.of(context).size.width;
     return Container(
       child: SingleChildScrollView(
+        scrollDirection: Axis.vertical,
         child: RefreshIndicator(
           onRefresh: _onRefresh,
           child: Column(
@@ -194,10 +212,29 @@ class _HomeScreenState extends State<HomeScreen> {
                                     fontSize: 16, color: Color(0xff6B7280)),
                               ),
                             ),
-                          )
+                          ),
                         ],
                       ),
                     ),
+                    SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Column(
+                        children: List.generate(
+                          _itemsHotelimage.length,
+                          (index) => Padding(
+                            padding: const EdgeInsets.all(10),
+                            child: HotelCard(
+                                title: _itemsHoteltitle[index],
+                                location: _itemsHotellocation[index],
+                                image: _itemsHotelimage[index],
+                                c1w: 340,
+                                c1h: 88,
+                                c2w: double.infinity,
+                                c2h: 64),
+                          ),
+                        ),
+                      ),
+                    )
                   ],
                 ),
               ),

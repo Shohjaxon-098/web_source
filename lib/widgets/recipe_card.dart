@@ -64,7 +64,7 @@ class RecipeCard extends StatelessWidget {
                   padding: const EdgeInsets.only(left: 10),
                   child: Row(
                     children: [
-                      SvgPicture.asset("assets/Frame.svg"),
+                      SvgPicture.asset("assets/location.svg"),
                       Text(
                         location,
                         style:

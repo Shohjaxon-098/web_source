@@ -3,13 +3,16 @@ import 'package:flutter_svg/svg.dart';
 
 class HotelCard extends StatelessWidget {
   final String title;
+  final String titleButton;
   final double c1w;
   final double c1h;
   final double c2w;
   final double c2h;
   final String location;
   final String image;
+
   HotelCard({
+    required this.titleButton,
     required this.title,
     required this.location,
     required this.image,
@@ -47,30 +50,59 @@ class HotelCard extends StatelessWidget {
                 SizedBox(
                   width: 16,
                 ),
-                Column(
-                  children: [
-                    Text(
-                      title,
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16,
-                        color: Color(0xff1F2937),
+                SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.651,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        title,
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20,
+                          color: Color(0xff1F2937),
+                        ),
                       ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 10),
-                      child: Row(
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          SvgPicture.asset("assets/Frame.svg"),
-                          Text(
-                            location,
-                            style: TextStyle(
-                                color: Color(0xff6B7280), fontSize: 11),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 10),
+                            child: Row(
+                              children: [
+                                SvgPicture.asset("assets/location.svg"),
+                                Text(
+                                  location,
+                                  style: TextStyle(
+                                      color: Color(0xff6B7280), fontSize: 10),
+                                ),
+                              ],
+                            ),
                           ),
+                          Container(
+                            width: 88,
+                            height: 28,
+                            decoration: ShapeDecoration(
+                              color: Color(0xFF32B768),
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(8)),
+                            ),
+                            child: Center(
+                                child: Text(
+                              titleButton,
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 12,
+                                fontFamily: 'Inter',
+                                fontWeight: FontWeight.w600,
+                                height: 0,
+                              ),
+                            )),
+                          )
                         ],
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ],
             ),

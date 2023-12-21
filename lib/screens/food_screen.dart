@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:web_source/widgets/hotel_cards.dart';
 
 class FoodScreen extends StatefulWidget {
   const FoodScreen({super.key});
@@ -25,6 +26,7 @@ class _FoodScreenState extends State<FoodScreen> {
   ];
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return Scaffold(
+       );
   }
 }

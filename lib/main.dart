@@ -5,6 +5,7 @@ import 'package:web_source/screens/food_screen.dart';
 import 'package:web_source/pages/home_page.dart';
 import 'package:web_source/pages/map_page.dart';
 import 'package:web_source/pages/onboarding.dart';
+import 'package:web_source/screens/hotel_sreens.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -37,6 +38,7 @@ class MyApp extends StatelessWidget {
         "/home": (context) => HomePage(),
         "/map": (context) => MapPage(),
         "/food": (context) => FoodScreen(),
+        "/hotel": (context) => HotelScreen(),
       },
     );
   }

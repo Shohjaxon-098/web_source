@@ -1,10 +1,6 @@
+
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_carousel_widget/flutter_carousel_widget.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:web_source/pages/map_page.dart';
-import 'package:web_source/widgets/hotel_cards.dart';
-import 'package:web_source/widgets/recipe_card.dart';
+import 'package:web_source/utils/tools/file_importants.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});

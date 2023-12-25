@@ -1,14 +1,5 @@
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:google_sign_in/google_sign_in.dart';
-import 'package:page_transition/page_transition.dart';
-import 'package:web_source/model/toast.dart';
-import 'package:web_source/pages/home_page.dart';
-import 'package:web_source/services/auth_service.dart';
-import 'package:web_source/widgets/form_container_widget.dart';
-import 'package:web_source/widgets/key.dart';
+
+import 'package:web_source/utils/tools/file_importants.dart';
 
 class SignInForm extends StatefulWidget {
   const SignInForm({

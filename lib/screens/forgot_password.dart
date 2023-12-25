@@ -1,8 +1,5 @@
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
-import 'package:web_source/model/toast.dart';
-import 'package:web_source/pages/regstration_page.dart';
-import 'package:web_source/widgets/form_container_widget.dart';
+
+import 'package:web_source/utils/tools/file_importants.dart';
 
 class ForgotPassword extends StatefulWidget {
   ForgotPassword({super.key});

@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
+
+import 'package:web_source/utils/tools/file_importants.dart';
 
 class RecipeCard extends StatelessWidget {
   final String title;

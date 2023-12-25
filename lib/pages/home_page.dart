@@ -1,10 +1,6 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:web_source/pages/account_page.dart';
-import 'package:web_source/pages/history_page.dart';
-import 'package:web_source/pages/map_page.dart';
-import 'package:web_source/screens/home_screens.dart';
+
+
+import 'package:web_source/utils/tools/file_importants.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});

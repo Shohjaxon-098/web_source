@@ -25,6 +25,28 @@ class _FoodScreenState extends State<FoodScreen> {
   ];
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return Scaffold(
+      body: GridView.builder(
+          itemCount: _itemsimage.length,
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              mainAxisSpacing: 15,
+              mainAxisExtent: 250,
+              crossAxisSpacing: 15),
+          itemBuilder: (context, index) {
+            return Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: RecipeCard(
+                title: _itemstitle[index],
+                location: _itemslocation[index],
+                image: _itemsimage[index],
+                c1w: w(context) * 0.4,
+                c1h: h(context) * 0.25,
+                c2w: w(context) * 0.45,
+                c2h: h(context) * 0.25,
+              ),
+            );
+          }),
+    );
   }
 }

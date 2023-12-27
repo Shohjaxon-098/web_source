@@ -45,8 +45,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Future<void> _onRefresh() async {}
   @override
   Widget build(BuildContext context) {
-    double h = MediaQuery.of(context).size.height;
-    double w = MediaQuery.of(context).size.width;
+
     return Scaffold(
       appBar: AppBar(
         title: Padding(
@@ -71,7 +70,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ],
           ),
         ),
-        toolbarHeight: h * 0.08,
+        toolbarHeight: h(context) * 0.08,
         actions: [
           Padding(
             padding: const EdgeInsets.only(top: 5, right: 15),
@@ -90,8 +89,8 @@ class _HomeScreenState extends State<HomeScreen> {
             child: Column(
               children: [
                 SizedBox(
-                  width: w * 0.75,
-                  height: h * 0.044,
+                  width: w(context) * 0.75,
+                  height: h (context)* 0.044,
                   child: Container(
                     decoration: BoxDecoration(
                       color: Color(0xffE6E7E9),
@@ -117,7 +116,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ),
                 Container(
-                  height: h * 0.26,
+                  height: h(context) * 0.26,
                   child: FlutterCarousel(
                     options: CarouselOptions(
                       autoPlay: true,
@@ -148,7 +147,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 Container(
                   padding: EdgeInsets.only(left: 18),
                   width: double.infinity,
-                  height: h * 0.37,
+                  height: h(context) * 0.37,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -196,10 +195,10 @@ class _HomeScreenState extends State<HomeScreen> {
                             (index) => Padding(
                               padding: const EdgeInsets.all(8),
                               child: RecipeCard(
-                                  c1w: w * 0.4,
-                                  c1h: h * 0.25,
-                                  c2w: w * 0.35,
-                                  c2h: h * 0.25,
+                                  c1w: w(context) * 0.4,
+                                  c1h: h(context) * 0.25,
+                                  c2w: w(context) * 0.35,
+                                  c2h: h(context) * 0.25,
                                   title: _itemstitle[index],
                                   location: _itemslocation[index],
                                   image: _itemsimage[index]),

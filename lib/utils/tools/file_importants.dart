@@ -30,3 +30,4 @@ export 'package:web_source/screens/forgot_password.dart';
 export 'package:firebase_core/firebase_core.dart';
 export 'package:web_source/pages/onboarding.dart';
 export 'package:web_source/screens/food_screen.dart';
+export  'package:web_source/utils/constants/devise_size.dart';

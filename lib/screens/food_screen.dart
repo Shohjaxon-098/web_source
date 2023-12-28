@@ -26,6 +26,7 @@ class _FoodScreenState extends State<FoodScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(),
       body: GridView.builder(
           itemCount: _itemsimage.length,
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(

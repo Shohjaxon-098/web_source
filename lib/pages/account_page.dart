@@ -147,7 +147,7 @@ class _AccountPageState extends State<AccountPage> {
                       Text(
                         'Account setting',
                         style: TextStyle(
-                          color: Color(0xFF374151),
+                          color: Color(0xFF374151), 
                           fontSize: 18,
                           fontFamily: 'Inter',
                           fontWeight: FontWeight.w400,

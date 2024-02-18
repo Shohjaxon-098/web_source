@@ -8,6 +8,13 @@ class AccountPage extends StatefulWidget {
 }
 
 class _AccountPageState extends State<AccountPage> {
+  final user = FirebaseAuth.instance.currentUser!;
+  void signOut() {
+    setState(() {
+      FirebaseAuth.instance.signOut();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -61,7 +68,7 @@ class _AccountPageState extends State<AccountPage> {
                           ),
                         ),
                         Text(
-                          'sadekbranding@gmail.com',
+                          user.email!,
                           style: TextStyle(
                             color: Color(0xFF6B7280),
                             fontSize: 10,
@@ -147,7 +154,7 @@ class _AccountPageState extends State<AccountPage> {
                       Text(
                         'Account setting',
                         style: TextStyle(
-                          color: Color(0xFF374151), 
+                          color: Color(0xFF374151),
                           fontSize: 18,
                           fontFamily: 'Inter',
                           fontWeight: FontWeight.w400,
@@ -306,6 +313,27 @@ class _AccountPageState extends State<AccountPage> {
                       ),
                     ),
                   ],
+                ),
+              ),
+              SizedBox(
+                height: 40,
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  signOut();
+                },
+                child: Text(
+                  "Log Out",
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16),
+                ),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Color(0xffEB4646),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(11),
+                  ),
                 ),
               ),
             ],

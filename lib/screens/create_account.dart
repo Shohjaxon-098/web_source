@@ -1,4 +1,3 @@
-
 import 'package:web_source/utils/tools/file_importants.dart';
 
 class SignInForm extends StatefulWidget {
@@ -31,7 +30,13 @@ class _SignInFormState extends State<SignInForm> {
     setState(() {
       _isSigning = true;
     });
-
+    showDialog(
+        context: context,
+        builder: (context) {
+          return Center(
+            child: CircularProgressIndicator(),
+          );
+        });
     String email = emailController.text;
     String password = passwordController.text;
     String confirmPassword = confirmPasswordcontroller.text;
@@ -49,9 +54,17 @@ class _SignInFormState extends State<SignInForm> {
     } else {
       showToast(message: "some error occured");
     }
+    
   }
 
   void _createAccountWithGoogle() async {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return Center(
+            child: CircularProgressIndicator(),
+          );
+        });
     final GoogleSignIn _googleSignIn = GoogleSignIn();
 
     try {
@@ -77,6 +90,7 @@ class _SignInFormState extends State<SignInForm> {
     } catch (e) {
       showToast(message: "some error occured $e");
     }
+    
   }
 
   @override

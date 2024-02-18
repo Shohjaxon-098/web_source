@@ -1,5 +1,3 @@
-
-
 import 'package:web_source/utils/tools/file_importants.dart';
 
 class LoginPage extends StatefulWidget {
@@ -10,7 +8,6 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-
   final FirebaseAuthService _auth = FirebaseAuthService();
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   bool inputTextNotNull = false;
@@ -26,6 +23,13 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Future<void> _login() async {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return Center(
+            child: CircularProgressIndicator(),
+          );
+        });
     setState(() {
       isSigningUp = true;
     });
@@ -47,6 +51,13 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   void _loginWithGoogle() async {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return Center(
+            child: CircularProgressIndicator(),
+          );
+        });
     final GoogleSignIn _googleSignIn = GoogleSignIn();
 
     try {

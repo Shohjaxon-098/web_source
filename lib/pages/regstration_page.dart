@@ -1,4 +1,3 @@
-
 import 'package:web_source/utils/tools/file_importants.dart';
 
 class RegstrationPage extends StatefulWidget {
@@ -8,12 +7,14 @@ class RegstrationPage extends StatefulWidget {
   State<RegstrationPage> createState() => _RegstrationPageState();
 }
 
+
+
 class _RegstrationPageState extends State<RegstrationPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Expanded(  
+        child: Expanded(
           child: SingleChildScrollView(
             child: Column(
               children: [

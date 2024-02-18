@@ -1,4 +1,3 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:web_source/utils/tools/file_importants.dart';
 
@@ -15,7 +14,7 @@ class _HomeScreenState extends State<HomeScreen> {
     "assets/hotel2.png",
     "assets/hotel1.png",
   ];
-  List<String> _itemsHotelBook = ["Check", "Check", "Check"];
+  List<String> _itemsHotelBook = ["Book", "Book", "Book"];
   List<String> _itemsHoteltitle = [
     "Ambrosia Hotel & Restaurant",
     "Tava Restaurant",
@@ -45,7 +44,6 @@ class _HomeScreenState extends State<HomeScreen> {
   Future<void> _onRefresh() async {}
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: AppBar(
         title: Padding(
@@ -90,7 +88,7 @@ class _HomeScreenState extends State<HomeScreen> {
               children: [
                 SizedBox(
                   width: w(context) * 0.75,
-                  height: h (context)* 0.044,
+                  height: h(context) * 0.044,
                   child: Container(
                     decoration: BoxDecoration(
                       color: Color(0xffE6E7E9),

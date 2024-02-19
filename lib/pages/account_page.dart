@@ -1,3 +1,4 @@
+import 'package:provider/provider.dart';
 import 'package:web_source/utils/tools/file_importants.dart';
 
 class AccountPage extends StatefulWidget {
@@ -9,11 +10,6 @@ class AccountPage extends StatefulWidget {
 
 class _AccountPageState extends State<AccountPage> {
   final user = FirebaseAuth.instance.currentUser!;
-  void signOut() {
-    setState(() {
-      FirebaseAuth.instance.signOut();
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -319,8 +315,8 @@ class _AccountPageState extends State<AccountPage> {
                 height: 40,
               ),
               ElevatedButton(
-                onPressed: () {
-                  signOut();
+                onPressed: () async {
+                  FirebaseAuth.instance.signOut();
                 },
                 child: Text(
                   "Log Out",

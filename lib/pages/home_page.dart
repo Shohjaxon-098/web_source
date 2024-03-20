@@ -1,5 +1,3 @@
-
-
 import 'package:web_source/utils/tools/file_importants.dart';
 
 class HomePage extends StatefulWidget {
@@ -28,8 +26,6 @@ class _HomePageState extends State<HomePage> {
   int currentIndex = 0;
   @override
   Widget build(BuildContext context) {
-    double h = MediaQuery.of(context).size.height;
-
     return Scaffold(
       body: SizedBox.expand(
         child: PageView(
